@@ -36,6 +36,25 @@
     padding: 0 1.5rem;
   }
 
+  /* HERO LAYOUT */
+  .hero-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .hero-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .hero-text { flex: 1; }
+
   /* NAV */
   nav {
     display: flex;
@@ -198,18 +217,45 @@
   .project-item:hover .arrow { color: var(--accent); }
 
   /* M&A */
+  .ma-subsection { margin-bottom: 2rem; }
+
+  .ma-sublabel {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .ma-sublabel-pill {
+    display: inline-block;
+    font-size: 9px;
+    padding: 0.15rem 0.5rem;
+    border-radius: 2rem;
+  }
+
+  .ma-sublabel-pill.anime { background: #e8f0fe; color: #3b5bdb; }
+  .ma-sublabel-pill.manga { background: #fff0e6; color: #c2410c; }
+
   .ma-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
   }
 
   .ma-card {
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 1rem;
+    padding: 0.85rem;
     transition: border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .ma-card:hover { border-color: var(--accent); }
@@ -218,25 +264,46 @@
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     color: var(--ink-faint);
-    margin-bottom: 0.35rem;
   }
 
-  .ma-type {
-    display: inline-block;
+  .ma-title { font-size: 12px; font-weight: 500; color: var(--ink); line-height: 1.3; flex: 1; }
+  .ma-genre { font-size: 10px; color: var(--ink-faint); }
+
+  .ma-score {
     font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.15rem 0.45rem;
-    border-radius: 2rem;
-    margin-bottom: 0.4rem;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 0.25rem;
   }
+
+  .ma-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+
+  .ma-nav-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--ink-muted);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+
+  .ma-nav-btn:hover { border-color: var(--ink-muted); color: var(--ink); }
 
   .ma-type.anime { background: #e8f0fe; color: #3b5bdb; }
   .ma-type.manga { background: #fff0e6; color: #c2410c; }
 
-  .ma-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 0.25rem; line-height: 1.3; }
-  .ma-genre { font-size: 11px; color: var(--ink-faint); }
+  .ma-title { font-size: 12px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+  .ma-genre { font-size: 10px; color: var(--ink-faint); }
 
   /* BOOKS */
   .book-filter {
@@ -378,10 +445,39 @@
   }
 
   /* RESPONSIVE */
-  @media (max-width: 480px) {
-    .hobbies-grid { grid-template-columns: 1fr; }
+  @media (max-width: 600px) {
+    /* Nav */
+    nav { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .nav-links { gap: 1rem; }
+
+    /* Hero */
+    .hero-inner { gap: 1.25rem; }
+    .hero-photo { width: 80px; height: 80px; }
+    .hero h1 { font-size: 2rem; }
+
+    /* M&A grid: 2 columns on mobile */
     .ma-grid { grid-template-columns: repeat(2, 1fr); }
+    .ma-page.active { grid-template-columns: repeat(2, 1fr); }
+
+    /* Hobbies: single column */
+    .hobbies-grid { grid-template-columns: 1fr; }
+
+    /* Find me: single column */
     .findme-grid { grid-template-columns: 1fr; }
+
+    /* Books: stack meta below info */
+    .book-item { flex-wrap: wrap; gap: 0.5rem; }
+    .book-meta { flex-direction: row; align-items: center; gap: 0.5rem; }
+
+    /* Project items: hide arrow on small screens */
+    .project-tag { font-size: 10px; padding: 0.15rem 0.4rem; }
+
+    /* Section labels smaller */
+    .section-label span { font-size: 10px; }
+
+    /* Buttons: stack on very small */
+    .hero-links { gap: 0.5rem; }
+    .btn { font-size: 12px; padding: 0.45rem 0.9rem; }
   }
 </style>
 </head>
@@ -401,11 +497,16 @@
 
   <!-- ── HERO ───────────────────────────────────────────── -->
   <section class="hero">
-    <p class="hero-eyebrow">Hello, I'm Aditya</p>
-    <h1>Aditya Wikara</h1>
-    <div class="hero-links">
-      <a href="#what-i-do" class="btn btn-primary">See my work</a>
-      <a href="#find-me" class="btn btn-ghost">Get in touch</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-eyebrow">Hello, I'm Aditya</p>
+        <h1>Aditya Wikara</h1>
+        <div class="hero-links">
+          <a href="#what-i-do" class="btn btn-primary">See my work</a>
+          <a href="#find-me" class="btn btn-ghost">Get in touch</a>
+        </div>
+      </div>
+      <img src="profile.jpg" alt="Aditya Wikara" class="hero-photo">
     </div>
   </section>
 
@@ -414,30 +515,30 @@
     <div class="section-label"><span>What I Do</span></div>
     <div class="project-list">
 
-      <a href="#" class="project-item">
+      <a href="https://www.smsolarindo.com" target="_blank" rel="noopener" class="project-item">
         <div class="project-left">
-          <div class="project-title">Project Alpha</div>
-          <div class="project-desc">A short description of what this does and why it matters.</div>
+          <div class="project-title">SMSolar</div>
+          <div class="project-desc">PT Surya Mitra Sentral, or known as SMSolar, is a Bogor-based solar energy company founded in 2020, focused on the construction and development of solar power projects across Indonesia.</div>
         </div>
-        <span class="project-tag">Web</span>
+        <span class="project-tag">Energy</span>
         <span class="arrow">↗</span>
       </a>
 
-      <a href="#" class="project-item">
+      <a href="https://www.instagram.com/tigaflora.id" target="_blank" rel="noopener" class="project-item">
         <div class="project-left">
-          <div class="project-title">Project Beta</div>
-          <div class="project-desc">Another thing I built — a tool, an experiment, or a side hustle.</div>
+          <div class="project-title">Tiga Flora Farms</div>
+          <div class="project-desc">A hydroponic farm I run with my siblings, researching smart farming across three fronts: agricultural products, farming technology, and efficient farming operations.</div>
         </div>
-        <span class="project-tag">Design</span>
+        <span class="project-tag">Agriculture</span>
         <span class="arrow">↗</span>
       </a>
 
-      <a href="#" class="project-item">
+      <a href="https://www.instagram.com/adityawikara/" target="_blank" rel="noopener" class="project-item">
         <div class="project-left">
-          <div class="project-title">Open Source Thing</div>
-          <div class="project-desc">Something I put on GitHub because sharing is caring.</div>
+          <div class="project-title">Content Creation</div>
+          <div class="project-desc">I create news-related content on Instagram and TikTok — breaking down stories and topics that matter in a digestible way.</div>
         </div>
-        <span class="project-tag">OSS</span>
+        <span class="project-tag">Content</span>
         <span class="arrow">↗</span>
       </a>
 
@@ -447,51 +548,43 @@
   <!-- ── M&A ────────────────────────────────────────────── -->
   <section id="ma">
     <div class="section-label"><span>M&amp;A — Manga &amp; Anime</span></div>
-    <div class="ma-grid">
 
-      <div class="ma-card">
-        <div class="ma-rank">01</div>
-        <span class="ma-type anime">Anime</span>
-        <div class="ma-title">Fullmetal Alchemist: Brotherhood</div>
-        <div class="ma-genre">Action · Drama</div>
+    <!-- MANGA -->
+    <div class="ma-subsection">
+      <div class="ma-sublabel"><span class="ma-sublabel-pill manga">Manga</span></div>
+      <div class="ma-grid">
+        <div class="ma-card"><div class="ma-rank">01</div><div class="ma-title">One Piece</div><div class="ma-genre">Action · Adventure · Fantasy</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">02</div><div class="ma-title">Kaguya-sama wa Kokurasetai</div><div class="ma-genre">Romance · Comedy</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">03</div><div class="ma-title">Ao Ashi</div><div class="ma-genre">Sports · Drama</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">04</div><div class="ma-title">Tokyo Revengers</div><div class="ma-genre">Action · Drama</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">05</div><div class="ma-title">Naruto</div><div class="ma-genre">Action · Adventure</div><div class="ma-score">★ 9</div></div>
+        <div class="ma-card"><div class="ma-rank">06</div><div class="ma-title">Eyeshield 21</div><div class="ma-genre">Sports · Comedy</div><div class="ma-score">★ 9</div></div>
+        <div class="ma-card"><div class="ma-rank">07</div><div class="ma-title">Slam Dunk</div><div class="ma-genre">Sports · Comedy · Drama</div><div class="ma-score">★ 9</div></div>
+        <div class="ma-card"><div class="ma-rank">08</div><div class="ma-title">Vinland Saga</div><div class="ma-genre">Historical · Action · Drama</div><div class="ma-score">★ 9</div></div>
       </div>
-
-      <div class="ma-card">
-        <div class="ma-rank">02</div>
-        <span class="ma-type anime">Anime</span>
-        <div class="ma-title">Vinland Saga</div>
-        <div class="ma-genre">Historical · Action</div>
+      <div class="ma-nav">
+        <a href="https://myanimelist.net/mangalist/MitandGrit" target="_blank" rel="noopener" class="ma-nav-btn">See More Manga I Read ↗</a>
       </div>
-
-      <div class="ma-card">
-        <div class="ma-rank">03</div>
-        <span class="ma-type manga">Manga</span>
-        <div class="ma-title">Berserk</div>
-        <div class="ma-genre">Dark Fantasy · Action</div>
-      </div>
-
-      <div class="ma-card">
-        <div class="ma-rank">04</div>
-        <span class="ma-type anime">Anime</span>
-        <div class="ma-title">Steins;Gate</div>
-        <div class="ma-genre">Sci-fi · Thriller</div>
-      </div>
-
-      <div class="ma-card">
-        <div class="ma-rank">05</div>
-        <span class="ma-type manga">Manga</span>
-        <div class="ma-title">Vagabond</div>
-        <div class="ma-genre">Historical · Drama</div>
-      </div>
-
-      <div class="ma-card">
-        <div class="ma-rank">06</div>
-        <span class="ma-type anime">Anime</span>
-        <div class="ma-title">Hunter × Hunter</div>
-        <div class="ma-genre">Adventure · Action</div>
-      </div>
-
     </div>
+
+    <!-- ANIME -->
+    <div class="ma-subsection">
+      <div class="ma-sublabel"><span class="ma-sublabel-pill anime">Anime</span></div>
+      <div class="ma-grid">
+        <div class="ma-card"><div class="ma-rank">01</div><div class="ma-title">Cowboy Bebop</div><div class="ma-genre">Action · Sci-fi · Drama</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">02</div><div class="ma-title">Spirited Away</div><div class="ma-genre">Adventure · Fantasy</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">03</div><div class="ma-title">Samurai Champloo</div><div class="ma-genre">Action · Adventure</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">04</div><div class="ma-title">Code Geass R2</div><div class="ma-genre">Action · Mecha · Drama</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">05</div><div class="ma-title">Fullmetal Alchemist: Brotherhood</div><div class="ma-genre">Action · Adventure · Drama</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">06</div><div class="ma-title">Hunter x Hunter (2011)</div><div class="ma-genre">Action · Adventure</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">07</div><div class="ma-title">Kimi no Na wa.</div><div class="ma-genre">Romance · Drama</div><div class="ma-score">★ 10</div></div>
+        <div class="ma-card"><div class="ma-rank">08</div><div class="ma-title">Kaguya-sama Season 1</div><div class="ma-genre">Romance · Comedy</div><div class="ma-score">★ 10</div></div>
+      </div>
+      <div class="ma-nav">
+        <a href="https://myanimelist.net/animelist/MitandGrit" target="_blank" rel="noopener" class="ma-nav-btn">See More Anime I Watched ↗</a>
+      </div>
+    </div>
+
   </section>
 
   <!-- ── BOOKS ──────────────────────────────────────────── -->
@@ -499,10 +592,11 @@
     <div class="section-label"><span>Books</span></div>
 
     <div class="book-filter">
-      <button class="filter-btn active" data-year="all">All</button>
-      <button class="filter-btn" data-year="2026">2026</button>
+      <button class="filter-btn active" data-year="2026">2026</button>
       <button class="filter-btn" data-year="2025">2025</button>
       <button class="filter-btn" data-year="2024">2024</button>
+      <button class="filter-btn" data-year="2023">2023</button>
+      <button class="filter-btn" data-year="all">All</button>
     </div>
 
     <div class="book-list" id="book-list">
@@ -607,47 +701,38 @@
     <div class="section-label"><span>Find me</span></div>
     <div class="findme-grid">
 
-      <a href="/cdn-cgi/l/email-protection#066e6f4667626f727f67716f6d6774672865696b" class="findme-link">
+      <a href="mailto:adityawikara&#64;gmail.com" class="findme-link">
         <div class="findme-icon">✉</div>
         <div class="findme-label">
           <span class="findme-platform">Email</span>
-          <span class="findme-handle"><span class="__cf_email__" data-cfemail="acc4c5eccdc8c5d8d5cddbc5c7cddecd82cfc3c1">[email&#160;protected]</span></span>
+          <span class="findme-handle">adityawikara&#64;gmail.com</span>
         </div>
         <span class="findme-arrow">↗</span>
       </a>
 
-      <a href="https://x.com/adityawikara" target="_blank" rel="noopener" class="findme-link">
-        <div class="findme-icon">𝕏</div>
-        <div class="findme-label">
-          <span class="findme-platform">X (Twitter)</span>
-          <span class="findme-handle">@adityawikara</span>
-        </div>
-        <span class="findme-arrow">↗</span>
-      </a>
-
-      <a href="https://instagram.com/adityawikara" target="_blank" rel="noopener" class="findme-link">
+      <a href="https://www.instagram.com/adityawikara/" target="_blank" rel="noopener" class="findme-link">
         <div class="findme-icon">◎</div>
         <div class="findme-label">
           <span class="findme-platform">Instagram</span>
-          <span class="findme-handle">@adityawikara</span>
+          <span class="findme-handle">&#64;adityawikara</span>
         </div>
         <span class="findme-arrow">↗</span>
       </a>
 
-      <a href="https://github.com/adityawikara" target="_blank" rel="noopener" class="findme-link">
-        <div class="findme-icon">&lt;/&gt;</div>
+      <a href="https://x.com/adwikara" target="_blank" rel="noopener" class="findme-link">
+        <div class="findme-icon">𝕏</div>
         <div class="findme-label">
-          <span class="findme-platform">GitHub</span>
-          <span class="findme-handle">adityawikara</span>
+          <span class="findme-platform">X (Twitter)</span>
+          <span class="findme-handle">&#64;adwikara</span>
         </div>
         <span class="findme-arrow">↗</span>
       </a>
 
-      <a href="https://linkedin.com/in/adityawikara" target="_blank" rel="noopener" class="findme-link">
+      <a href="https://www.linkedin.com/in/adwikara/" target="_blank" rel="noopener" class="findme-link">
         <div class="findme-icon">in</div>
         <div class="findme-label">
           <span class="findme-platform">LinkedIn</span>
-          <span class="findme-handle">Aditya Wikara</span>
+          <span class="findme-handle">&#64;adwikara</span>
         </div>
         <span class="findme-arrow">↗</span>
       </a>
@@ -663,8 +748,15 @@
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const bookItems  = document.querySelectorAll('.book-item');
+  const filterBtns = document.querySelectorAll('.book-filter .filter-btn');
+  const bookItems  = document.querySelectorAll('#book-list .book-item');
+
+  // Default: show only 2026 on load
+  bookItems.forEach(item => {
+    if (item.dataset.year !== '2026') item.classList.add('hidden');
+  });
+  const firstVisible = document.querySelector('#book-list .book-item:not(.hidden)');
+  if (firstVisible) firstVisible.style.borderTop = '1px solid var(--border)';
 
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
